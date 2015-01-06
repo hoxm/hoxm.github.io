@@ -1,0 +1,423 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Git Command and Usage | Hoxm</title>
+  
+  
+  <meta name="description" content="Been enjoying all pains and joys in the life.">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="Git Command and Usage"/>
+  <meta property="og:site_name" content="Hoxm"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+
+</head>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">Hoxm</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class="fa fa-folder"></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class="fa fa-tags"></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+
+	
+		<div class="page-header">		
+			<h1> Git Command and Usage</h1>
+		</div>		
+	
+
+
+
+<div class="row post">
+	<!-- cols -->
+	
+	<div class="col-md-9">
+	
+
+			
+
+	<!-- content -->
+	<div class="mypage">		
+	    <p>Git不用介绍了，本文作为git使用的备忘录，<br>介绍Git安装、配置过程、常用命令和使用场景等。</p>
+<a id="more"></a>
+
+<h2 id="Git_安装和配置">Git 安装和配置</h2>
+<h3 id="ubuntu上git安装过程">ubuntu上git安装过程</h3>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-<span class="built_in">get</span> install git-<span class="keyword">all</span></div></pre></td></tr></table></figure>
+
+<p>或者选择性安装</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-<span class="built_in">get</span> install git git-doc git-email git-<span class="keyword">gui</span> gitg kdiff3</div></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="git_配置过程">git 配置过程</h3>
+<p>修改当前用户配置, —system 可以配置所有本机用户。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">git config --<span class="keyword">global</span> user.name <span class="string">"xxx"</span></div><div class="line">git config --<span class="keyword">global</span> user.email <span class="string">"xxx@yyy.com"</span></div><div class="line">git config --<span class="keyword">global</span> core.<span class="keyword">editor</span> vim</div><div class="line">git config --<span class="keyword">global</span> <span class="keyword">color</span>.ui true</div><div class="line">git config --<span class="keyword">global</span> merge.tool kdiff3 </div><div class="line"></div><div class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.st status</div><div class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.ci commit</div><div class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.co checkout</div><div class="line">git config --<span class="keyword">global</span> <span class="keyword">alias</span>.br branch</div></pre></td></tr></table></figure>
+
+<p>查看配置结果</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">jxiao1@jxiao1-OptiPlex-<span class="number">990</span>:$ cat ~/.gitconfig</div><div class="line">[user]</div><div class="line">	<span class="variable">name =</span> xxx</div><div class="line">	<span class="variable">email =</span> xxx@yyy.com</div><div class="line">[core]</div><div class="line">	<span class="variable">editor =</span> vim</div><div class="line">[color]</div><div class="line">	<span class="variable">ui =</span> <span class="constant">true</span></div><div class="line">[merge]</div><div class="line">	<span class="variable">tool =</span> kdiff3</div><div class="line">[sendemail]</div><div class="line">	<span class="variable">suppresscc =</span> all</div><div class="line">	<span class="variable">smtpserver =</span> <span class="string">"xxx"</span></div></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="Git_Commands">Git Commands</h2>
+<p><strong>所有命令都可以tab补齐，也可以查看子命令help</strong></p>
+<pre><code>git <span class="comment">--version               #查看当前git版本号</span>
+git config -e               <span class="comment">#编辑版本库配置文件.git/config</span>
+git config -e <span class="comment">--global      #编辑用户全局配置文件 ～/.gitconfig</span>
+git config -e <span class="comment">--system      #编辑系统全局配置文件 /etc/gitconfig</span>
+git config core.bare        <span class="comment">#读取版本库配置文件core中bare属性的值</span>
+git config core.bare <span class="constant">true</span>   <span class="comment">#修改版本库配置文件core中bare属性的值</span>
+git config <span class="operator">a</span>.b something    <span class="comment">#添加版本库配置文件中一个a section b属性, 值为something</span>
+git config <span class="comment">--unset a.b      #删除版本库配置文件中a section的 b属性</span>
+git config <span class="comment">--global --get user.name  #获取user name</span>
+
+git init demo               <span class="comment">#初始化demo版本库</span>
+git init <span class="comment">--bare             #空目录中初始化一个空白仓库</span>
+git clone url <span class="built_in">local</span>-name    <span class="comment">#clone一个仓库</span>
+git clone <span class="comment">--mirror          #镜像clone一个仓库， 之后可以 git remote update/git fetch更新和同步</span>
+git status                  <span class="comment">#查看版本库信息 -s 精简格式输出</span>
+
+git <span class="built_in">add</span> hello.c             <span class="comment">#提交新文件或文件改到到暂存库（stage）</span>
+git <span class="built_in">add</span> -u                  <span class="comment">#提交所有改动和删除内容</span>
+git <span class="built_in">add</span> .                   <span class="comment">#提交所有改动和添加内容</span>
+git <span class="built_in">add</span> -A                  <span class="comment">#提交所有改动</span>
+git <span class="built_in">add</span> -i                  <span class="comment">#进入交互式提交界面</span>
+git <span class="built_in">add</span> -p [filename]       <span class="comment">#分块提交改动</span>
+    stage this hunk [y,n,q,<span class="operator">a</span>,d,/,s,e?]
+    s: 分割改动成小块
+    y: 暂存该块
+    n: 不暂存该块
+    e: 手工编辑该块
+
+git checkout branchname     <span class="comment">#切换到某个分支，同时更新HEAD，暂存区，工作区</span>
+git checkout master^        <span class="comment">#切换head到mater分支的最新版本前一个版本，同时更新HEAD，暂存区，工作区</span>
+git checkout master         <span class="comment">#切换到mater分支</span>
+git checkout .              <span class="comment">#清除工作区内所有被管理文件的修改，用暂存区内容覆盖</span>
+git checkout <span class="comment">-- filename    #用暂存区的内容覆盖工作区相应文件内容</span>
+git checkout branchname <span class="comment">-- filename  #用某个分支的对应文件，覆盖暂存区和工作区中相应文件</span>
+git checkout [HEAD]         <span class="comment">#汇总显示工作区，暂存区，HEAD 的差异</span>
+
+git clean -fd               <span class="comment">#清除没有纳入版本管理的文件</span>
+
+git reset <span class="comment">--hard HEAD^      #reset master 到上一个版本，--hard表示同时reset工作区和暂存区内容</span>
+git reset <span class="comment">--hard master@{2} #reset master 分支编号2的历史操作版本，重最新为0开始</span>
+git reset <span class="comment">--soft &lt;commit&gt;   #--soft表示只是reset master 引用</span>
+git reset <span class="comment">--soft HEAD^      #保留工作区更改， 回滚本次提交</span>
+git reset [<span class="comment">--mixed] &lt;commit&gt;    #--mixed(默认值，可以空)表示reset master 引用，同时reset 暂存区</span>
+git reset [HEAD]            <span class="comment">#reset 暂存区中未提交的内容，等同git add 的反操作，HEAD默认可以不写</span>
+git reset <span class="comment">--filename        #reset 暂存区中某个文件，等同git reset HEAD filename</span>
+
+git commit -s -m <span class="string">"log message"</span>  <span class="comment">#提交暂存库修改到版本库 -s表示log中添加姓名和邮件标签</span>
+git commit <span class="comment">--amend              #修改还未push 的最后一次提交的log信息</span>
+git commit <span class="comment">--amend --allow-empty --reset-author   #重新修改最新提交，修正作者和提交者错误信息</span>
+
+git <span class="built_in">log</span> <span class="comment">--pretty=fuller             #显示作者和提交者信息</span>
+git <span class="built_in">log</span> <span class="comment">--pretty=oneline            #一行显示简单信息</span>
+git <span class="built_in">log</span> <span class="comment">--pretty=raw                #显示commit，tree，parent 的SHA1码和作者及提交者信息</span>
+git <span class="built_in">log</span> <span class="comment">--pretty=raw --graph SHA1   #显示对象的跟踪链（通过parent属性）</span>
+git <span class="built_in">log</span> <span class="comment">--graph --pretty=--oneline  #显示当前分支跟踪链，简化版本（ID和log）</span>
+git <span class="built_in">log</span> -<span class="number">3</span> <span class="comment">--pretty=oneline         #显示最近3条提交信息</span>
+git <span class="built_in">log</span> <span class="comment">--oneline HEAD~3..HEAD      #显示最近3条提交信息</span>
+git <span class="built_in">log</span> <span class="comment">--oneline ^:/"git mv test" HEAD  #查看HEAD相关历史版本，但是不含log为“git mv test”及其历史版本</span>
+git <span class="built_in">log</span> -p HEAD                        <span class="comment">#显示所有历史改动文件及改动内容，比较多</span>
+git <span class="built_in">log</span> <span class="comment">--stat HEAD                 #显示所有历史改动文件</span>
+git <span class="built_in">log</span> <span class="comment">--oneline --decorate        #显示提交对应的tag及其他引用</span>
+git <span class="built_in">log</span> <span class="comment">--oneline --pretty=format:%s -1 #获取最后一次提交的commit 标题</span>
+git <span class="built_in">log</span> <span class="comment">--format:%h -1              #获取最后一次提交的commit ID</span>
+
+git show HEAD <span class="comment">--stat                #显示单个版本的改动文件，HEAD 表示最新提交的版本</span>
+git show-ref                        <span class="comment">#查看所有引用</span>
+
+git diff                    <span class="comment">#比较工作区和暂存区的差异</span>
+git diff <span class="comment">--cached           #比较暂存区和HEAD的差异</span>
+git diff HEAD               <span class="comment">#比较工作区和HEAD的差异</span>
+git diff HEAD^ HEAD         <span class="comment">#比较最新提交的改动情况</span>
+git diff HEAD^ HEAD <span class="comment">-- filename    #比较最新提交的某个文件的改动情况</span>
+git diff <span class="comment">--word-diff        #逐词比较</span>
+
+git blame filename          <span class="comment">#文件追溯，显示每行的提交者和版本</span>
+git blame -L <span class="number">6</span> +<span class="number">5</span> filename  <span class="comment">#文件追溯，只显示第6行开始的5行内容情况</span>
+
+git branch                      <span class="comment">#显示本地分支列表</span>
+git branch -r                   <span class="comment">#显示远程分支列表</span>
+git branch -<span class="operator">a</span>                   <span class="comment">#显示所有分支列表</span>
+git branch branchname &lt;commit&gt;  <span class="comment">#基于&lt;commit&gt;创建分支，默认为基于HEAD</span>
+git branch -d branchname        <span class="comment">#删除分支名称， -D表示如果该分支从未被合并，也强行删除，-d不会</span>
+git branch -m oldbranchname newbranchname    <span class="comment">#重命名分支，-M表示重名也强行提交，-m不会</span>
+
+git tag -m <span class="string">"log message"</span> tagname <span class="comment">#生成tag</span>
+git tag                         <span class="comment">#显示本地tag</span>
+git tag -l V3_*                 <span class="comment">#显示名字符合正则表达式的tag</span>
+git tag -d tagname              <span class="comment">#删除tag</span>
+git pull                        <span class="comment">#默认以merge的方式pull</span>
+git pull <span class="comment">--rebase               #以git rebase 的方式pull， 默认是 --no-rebase</span>
+
+git push                        <span class="comment">#推送到单前默认远程主机</span>
+git push origin tagname         <span class="comment">#把本地tag推送到远程</span>
+git push remote-name            <span class="comment">#把本地修改推送到远程</span>
+git push <span class="comment">--tags                 #默认不推送tags，需要添加--tags</span>
+git push <span class="comment">--force                #如果远程和本地不一致，强行覆盖</span>
+git push origin <span class="built_in">local</span>-branch:   <span class="comment">#仅仅提交本地某个分支</span>
+git push origin :branch-name    <span class="comment">#删除远程分支</span>
+
+git pull-request HEAD~<span class="number">2</span> url     <span class="comment">#生成pull request</span>
+git <span class="built_in">send</span>-email <span class="comment">--to xxx --cc xxx file  #将file（比如pull request）内容发送邮件</span>
+
+git remote -v                   <span class="comment">#显示当前操作的远程版本库</span>
+git remote update               <span class="comment">#更新所有注册的远程版本库</span>
+git remote <span class="built_in">add</span> <span class="built_in">new</span>-remote path  <span class="comment">#注册新的远程版本库</span>
+git remote <span class="built_in">rename</span> old-remote <span class="built_in">new</span>-remote <span class="comment">#更改远程版本库名称</span>
+git remote rm remotename        <span class="comment">#删除某个注册的远程版本库</span>
+git remote show origin          <span class="comment">#查看远程版本库地址，当前分支等信息</span>
+git remote <span class="built_in">set</span>-url origin &lt;path&gt; <span class="comment">#修改push URL，比如http改为ssh的</span>
+
+git <span class="built_in">format</span>-patch origin/master  
+git <span class="built_in">format</span>-patch HEAD^          <span class="comment">#生成patch</span>
+git am -<span class="number">3</span> patch                 <span class="comment">#应用patch</span>
+
+git grep <span class="string">"string-to-find"</span>       <span class="comment">#在工作区搜索字符串</span>
+
+git rev-parse <span class="comment">--git-dir         #显示.git目录所在位置</span>
+git rev-parse <span class="comment">--show-toplevel   #显示工作区顶层目录</span>
+git rev-parse <span class="comment">--show-prefix     #相对与工作区根目录的相对目录</span>
+git rev-parse <span class="comment">--show-cdup       #相对与工作区根目录的回退深度（ ../../../形式）</span>
+git rev-parse <span class="comment">--abbrev-ref HEAD #获取HEAD指向的分支名，也就是当前分支。</span>
+git rev-parse <span class="comment">--symbolic --branches #显示分支</span>
+git rev-parse <span class="comment">--symbolic --tags     #显示tag</span>
+git rev-parse HEAD              <span class="comment">#显示版本库最新提交版本的SHA1码（版本ID）</span>
+git rev-parse HEAD master       <span class="comment">#同时显示最新提交和mater分支最新版本的SHA1码</span>
+git rev-parse HEAD^             <span class="comment">#显示版本库最新提交版本的上一个版本的SHA1码（版本ID）</span>
+
+git rev-list origin/master..HEAD <span class="comment">#查看还未提交到远程的本地提交</span>
+git rev-list <span class="comment">--oneline A        #查看版本关系， A开始的所有历史提交的关系</span>
+
+
+ls <span class="comment">--full-time                      #用系统命令，查看工作区文件</span>
+git ls-tree -l HEAD                 <span class="comment">#查看版本库当前提交版本的目录树</span>
+git ls-<span class="built_in">files</span> -s                     <span class="comment">#查看暂存区的目录树</span>
+git <span class="built_in">write</span>-tree                      <span class="comment">#将暂存区的目录树写入Git对象库，输出tree ID</span>
+git ls-tree -l -r -t SHA1           <span class="comment">#查看对应tree ID 的目录树</span>
+find . -path ./.git -prune -o -type f -printf <span class="string">"%-20p\t%s\n"</span>  <span class="comment">#查看工作区所有文件的大小</span>
+
+
+git stash               <span class="comment">#保存当前工作去进度，同时回覆所有工作区包括暂存区的改动</span>
+git stash list          <span class="comment">#显示stash 列表</span>
+git stash pop           <span class="comment">#恢复最新stash 保存的进度，同时删除该stash记录</span>
+git stash apply         <span class="comment">#恢复最新stash 保存的进度，当时不删除stash记录</span>
+git stash drop [stash]  <span class="comment">#删除某个stash记录，默认删除最新的</span>
+git stash <span class="built_in">clear</span>         <span class="comment">#删除所有stash记录</span>
+
+git cat-<span class="built_in">file</span> -t SHA1    <span class="comment">#显示SHA1码对应的git对象或文件的类型</span>
+git cat-<span class="built_in">file</span> -p SHA1    <span class="comment">#显示SHA1码对应的git对象或文件的内同</span>
+git cat-<span class="built_in">file</span> -p D^<span class="number">0</span>     <span class="comment">#显示tag D 对应的提交的内容</span>
+
+git reflog show master | head <span class="number">5</span>    <span class="comment">#查看master分支日志信息，能看到版本号和操作历史记录，head 5 表示显示前5行</span>
+git reflog -<span class="number">1</span>               <span class="comment">#查看HEAD 分支日志信息， -1表示显示最后一次操作信息</span>
+
+git <span class="built_in">merge</span> &lt;commit&gt;          <span class="comment">#合并当前分支和&lt;commit&gt;提交内容</span>
+git cherry-pick &lt;commitID&gt;  <span class="comment"># 应用其他分支上的某个提交到这个分支上。</span>
+git rebase <span class="comment">--onto C E^ F    #等同：</span>
+            <span class="comment">#git reset --hard C</span>
+            <span class="comment">#git cherry-pick E</span>
+            <span class="comment">#git cherry-pick F</span>
+
+git describe                <span class="comment">#显示基于最近建立的tag名的版本名</span>
+git describe <span class="comment">--always       #显示基于最近建立的tag名的版本名，没有则显示简短ID</span>
+
+git rm filename             <span class="comment">#删除文件名或者目录夹</span>
+git mv oldname newname      <span class="comment">#文件重命名</span>
+
+git revert &lt;commitID&gt;       <span class="comment">#对某次提交做一次撤销提交，本身也算是一次提交</span>
+
+git fsck                    <span class="comment">#查看所有未被任何引用关联的松散对象</span>
+git prune                   <span class="comment">#清除未关联的松散对象</span>
+
+git mergertool <span class="comment">--tool=kdiff3    #用kdiff3合并冲突，默认系统提供meld之类的</span>
+</code></pre><hr>
+<h2 id="Git_Usages">Git Usages</h2>
+<h3 id="临时生成_git_patch">临时生成 git patch</h3>
+<p>1.进入需要生产临时patch的代码目录</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git init</div><div class="line">git add -A</div><div class="line">git commit <span class="operator">-s</span> -m <span class="string">"init-message"</span></div></pre></td></tr></table></figure>
+
+<p>2.修改代码，然后按照下面的步骤提交并生成patch，不需要push</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">git add -A</div><div class="line">git <span class="operator"><span class="keyword">commit</span> -s -m <span class="string">"commit-message"</span> </span></div><div class="line">git <span class="keyword">show</span></div><div class="line">git <span class="keyword">format</span>-patch -<span class="number">1</span></div></pre></td></tr></table></figure>
+
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+<ul class="pagination">
+	 
+				
+    	<li class="prev"><a href="/2015/01/06/netifd-big-picture/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>Prev</a></li>
+  		
+
+        <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
+
+		
+		   <li class="next"><a href="/2014/12/24/mongodb-quickstart/" class="alignright next">Next<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+        
+	
+</ul>
+</div>
+
+    </center>
+	</div>
+	
+	<!-- comment -->
+	
+<section id="comment">
+  <h2 class="title">Comment</h2>
+
+  
+</section>
+
+	
+	</div> <!-- col-md-9/col-md-12 -->
+	
+	
+		<div class="col-md-3"> 
+
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	12月 25 2014 
+	</div>
+	
+
+	<!-- categories -->
+    
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#categorys"><i class="fa fa-folder"></i></a>	
+    <ul id="categorys" class="tag_box list-unstyled collapse in">
+          
+  <li>
+    <li><a href="/categories/tools/">tools<span>1</span></a></li>
+  </li>
+
+    </ul>
+	</div>
+	
+
+	<!-- tags -->
+	
+	<div class="meta-widget">
+	<a data-toggle="collapse" data-target="#tags"><i class="fa fa-tags"></i></a>		  
+    <ul id="tags" class="tag_box list-unstyled collapse in">	  
+	    
+  <li><a href="/tags/git/">git<span>1</span></a></li>
+    </ul>
+	</div>
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	
+
+</div><!-- row -->
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2015 Hoxm
+  
+      with help from <a href="http://zespia.tw/hexo/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+</body>
+   </html>
