@@ -1,0 +1,154 @@
+#!/bin/bash
+# Tiny Static blog tools
+
+#===============================================================================
+# Constant
+#===============================================================================
+TSB_MYNAME=$(basename $0)
+TSB_CATEGORY_DIR="./blog"
+TSB_RECENT_DIR="./blog"
+TSB_RECENT_NUM=3
+
+#===============================================================================
+# Functions
+#===============================================================================
+SHOW_INFO ()
+{
+    echo " INFO: " "$@"
+}
+
+SHOW_WARNING ()
+{
+    echo -ne "\e[1;32m"; echo -n "WARNING: " "$@"; echo -ne "\e[0m\n"
+}
+
+SHOW_ERROR ()
+{
+    echo -ne "\e[1;31m"; echo; echo -n "ERROR: " "$@"; echo -ne "\e[0m\n\n"
+}
+
+SHOW_DEBUG ()
+{
+    [ "$DI_DEBUG" = "1" ] && echo "DEBUG: " "$@"
+}
+
+SHOW_HELP()
+{
+    echo -e "\nusage:  $TSB_MYNAME command [options]\n"
+    echo ""
+    echo "commands:"
+    echo "  create <filename> [category]:"
+    echo "    Create new blog with filename, default category is 'others'"
+    echo "  scanall:"
+    echo "    Scan all blogs and set up the categories and recent database"
+    echo "  deploy [\"commit log\"]:"
+    echo "    Commit and push the new changes"
+    echo "  reset:"
+    echo "    Remove all blogs and reconfig according to template.conf"
+    echo "  help:"
+    echo "    Show this help menu"
+}
+
+tsb_create_blog ()
+{
+    return 0
+}
+
+tsb_scan_blogs ()
+{
+    local category category_new category_file category_cnt
+    local name mdate mtime url
+    local categories_file="$TSB_CATEGORY_DIR/categories.md"
+    local recents_blog_file="$TSB_RECENT_DIR/recentposts.htm"
+    local recents_list_file="$TSB_RECENT_DIR/recents.htm"
+    local categories_list_file="$TSB_CATEGORY_DIR/categories.htm"
+    local category_prefix="category-"
+
+    mkdir -p $TSB_CATEGORY_DIR $TSB_RECENT_DIR
+    rm -f $TSB_CATEGORY_DI/*.md $TSB_RECENT_DIR/*.md
+    rm -f $categories_list_file $recents_list_file $recents_blog_file
+
+    echo "##Categories" >$categories_file
+    for i in $(find ./source | sort) ; do
+        [ "$i" == "./source" ] && continue
+        [ "$i" == "./source/about.md" ] && continue
+
+        echo "$i" | grep -q ".*.md" && {
+            mdate=$(ls --full-time $i | awk '{print $6}')
+	    mtime=$(ls --full-time $i | awk '{print $7}' | sed 's/\..*$//g')
+            i=${i#"./source/"}
+            category_new=$(dirname $i)
+            [ "$category_new" != "$category" ] && {
+                [ -n "$category" -a -n "$category_cnt" -a "$category_cnt" != 0 ] && {
+                    echo "<li><a href=\"/?blog/${category_prefix}$(echo $category | sed 's/\//-/g')\">$category<span>$category_cnt</span></a></li>" >>$categories_list_file
+                }
+
+                category=$category_new
+                category_cnt=0
+                echo "###$category" >>$categories_file
+
+		category_file=$TSB_CATEGORY_DIR/${category_prefix}$(echo $category | sed 's/\//-/g').md
+                echo "###$category" >>$category_file
+            }
+	    category_cnt=$(($category_cnt + 1))
+            name=$(basename $i)
+            name=${name%".md"}
+	    echo "+ [$name](/?source/${category}/${name}) [$mdate]" >>$categories_file
+	    echo "+ [$name](/?source/${category}/${name}) [$mdate]" >>$category_file
+	    echo "$mdate-$mtime ${category} ${name}" >>$recents_list_file
+        }
+    done
+
+    # for last category
+    [ -n "$category" -a -n "$category_cnt" -a $category_cnt -gt 0 ] && {
+        echo "<li><a href=\"/?blog/${category_prefix}$(echo $category | sed 's/\//-/g')\">$category<span>$category_cnt</span></a></li>" >>$categories_list_file
+    }
+
+    cat $recents_list_file | sort -r | head -n $TSB_RECENT_NUM >${recents_list_file}.tmp
+    rm -rf $recents_list_file
+    while read line ; do
+        # for widget "Recent Posts"
+        mtime=$(echo "$line" | awk '{print $1}')
+        category=$(echo "$line" | awk '{print $2}')
+        name=$(echo "$line" | awk '{print $3}')
+        url="/?source/${category}/${name}"
+        echo "<li><a href=\"$url\" title=\"Last modify: $mtime\"><i class="fa fa-file-o"></i>$name</a></li>" >>$recents_list_file
+
+        # for recent posts overview
+        content=$(sed -n '1,/<!--more-->/'p ./source/${category}/${name}.md)
+        name=$(echo $name | sed 's/-/\ /g')
+        echo "<!-- display as entry -->" >>$recents_blog_file
+        echo "<h3 class="title"><a href=\"$url\" >$name</a><span class="date">$mtime</span></h3>" >>$recents_blog_file
+        echo "<div class="entry"><div class="row"><div class="col-md-12"><p>$content</p></div><a type=\"button\" href=\"$url\" class="btn btn-default more">Read More</a></div></div>" >>$recents_blog_file
+        echo "" >>$recents_blog_file
+    done < ${recents_list_file}.tmp
+    rm -f ${recents_list_file}.tmp
+
+    return 0
+}
+
+tsb_deploy_all ()
+{
+    return 0
+}
+
+tsb_reset_all ()
+{
+    return 0
+}
+
+#===============================================================================
+# Start Main
+#===============================================================================
+# Parse Options
+TSB_CMD="$1" && shift
+
+case $TSB_CMD in
+    create)  tsb_create_blog ;;
+    scanall) tsb_scan_blogs ;;
+    deploy)  tsb_deploy_all ;;
+    reset)   tsb_reset_all ;;
+    help)    SHOW_HELP && exit 0 ;;
+    *) SHOW_ERROR "Invalid command!" && exit 1 ;;
+esac
+
