@@ -7,7 +7,7 @@
 TSB_MYNAME=$(basename $0)
 TSB_CATEGORY_DIR="./blog"
 TSB_RECENT_DIR="./blog"
-TSB_RECENT_NUM=3
+TSB_RECENT_NUM=10
 
 #===============================================================================
 # Functions
