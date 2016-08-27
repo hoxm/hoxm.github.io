@@ -8,6 +8,18 @@
 只是尝试简化事情，界面显示纯粹复制，速度、代码质量等
 以后边写边学边改，有专业人士愿意指点的，不胜感激。
 
+最近热衷于提高python技能，于是发现了"Read The Docs",
+github + reStructuredText + Sphinx + ReadTheDocs 组合。
+完美替换我的以上需求。所以新的笔记文档什么的都搬迁新家：
+http://junxiandoc.readthedocs.io/en/latest/
+
+当然，最近gitbook印入眼帘，惊叹于这完全就是我要的东西。
+只是搬家太累，以后有什么系统性的整理当然会优先考虑。
+
+这个地方可能就这么冻结了， 依然留在纯为心路历程记录。
+感谢不断优化我们编程生活的大牛吗，虽然只能追赶你们的
+脚步，依然乐此不彼。
+
 ##About me
 
 ###$ hoxm \-\-version
